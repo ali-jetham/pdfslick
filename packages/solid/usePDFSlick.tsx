@@ -79,8 +79,10 @@ export const usePDFSlick: TUsePDFSlick = (url, options) => {
     setThumbs(node);
   };
 
-  createEffect(() => {
-    if (url && areContainersMounted()) {
+	createEffect(
+		() => areContainersMounted(),
+		(areContainersMounted) => {
+    if (url && areContainersMounted) {
       const pdfSlick = new PDFSlick({
         container: container()! as HTMLDivElement,
         // Read `thumbs()` untracked: this value is only needed at construction
@@ -102,7 +104,7 @@ export const usePDFSlick: TUsePDFSlick = (url, options) => {
         setIsDocumentLoaded(true);
       });
     }
-  });
+		});
 
   return {
     isDocumentLoaded,

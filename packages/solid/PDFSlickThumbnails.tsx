@@ -35,7 +35,9 @@ export function PDFSlickThumbnails(props: PDFSlickThumbnailsContainerProps) {
   const [resizeRef, setResizeRef] = createSignal<HTMLElement>();
   const size = createElementSize(resizeRef);
 
-  createEffect(() => {
+	createEffect(
+  () => size,
+  (size) => {
     if (size.width && size.height) {
       props.store.pdfSlick?.forceRendering();
     }
